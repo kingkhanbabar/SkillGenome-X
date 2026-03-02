@@ -1,0 +1,18 @@
+# Root virtual environment
+.venv/
+backend/real_skills.csv
+# Python cache
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+
+# Environment files
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db

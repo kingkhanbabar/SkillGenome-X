@@ -1,0 +1,101 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Stop page scroll, let dashboard scroll */
+}
+
+body {
+  background-color: #0d1117; /* Dark Background */
+  color: #c9d1d9;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* 2. LAYOUT */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* 3. NAVBAR */
+.navbar {
+  flex: 0 0 70px;
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+  z-index: 50;
+}
+
+.logo-section h1 { font-size: 1.5rem; color: white; margin-right: 10px; }
+.version { background: #238636; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; }
+
+.nav-links { display: flex; gap: 20px; }
+.nav-item { color: #8b949e; text-decoration: none; font-weight: 600; }
+.nav-item:hover { color: white; }
+
+/* 4. DASHBOARD CONTENT - THE FIX IS HERE */
+.dashboard-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px;
+}
+
+/* 5. GRIDS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  /* REMOVED fixed height: 450px */
+  min-height: 450px; /* Let it grow if needed */
+  height: auto;      /* This stops the overlapping! */
+  margin-bottom: 25px;
+}
+
+/* 6. CARDS */
+.card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.control-room {
+  margin-bottom: 25px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* BUTTONS */
+.button-group { display: flex; gap: 10px; margin-top: 15px; }
+.sim-btn {
+  padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; color: white; font-weight: bold;
+}
+.sim-btn.primary { background: #238636; }
+.sim-btn.danger { background: #da3633; }
+.sim-btn.outline { background: transparent; border: 1px solid #30363d; color: #c9d1d9; }
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  .stats-grid, .charts-container { grid-template-columns: 1fr; }
+}
