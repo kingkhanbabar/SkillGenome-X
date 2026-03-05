@@ -9,7 +9,8 @@ const ClusterPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('skillgenome-x-production.up.railway.app/api/clusters');
+        // FIX: Added https:// right here!
+        const res = await axios.get('https://skillgenome-x-production.up.railway.app/api/clusters');
         setData(res.data);
       } catch (err) {
         console.error(err);
@@ -71,7 +72,7 @@ const CustomizedContent = (props) => {
         width={width}
         height={height}
         style={{
-          fill: props.fill || '#58a6ff', // Default blue if no color sent
+          fill: props.fill || '#58a6ff', 
           stroke: '#0d1117',
           strokeWidth: 2,
           opacity: 0.8,
@@ -87,7 +88,7 @@ const CustomizedContent = (props) => {
           fill="#fff"
           fontSize={14}
           fontWeight="bold"
-          style={{pointerEvents: 'none'}} // Let clicks pass through to tooltip
+          style={{pointerEvents: 'none'}} 
         >
           {name}
         </text>
