@@ -28,7 +28,7 @@ const ClusterPage = () => {
       {/* HEADER */}
       <div className="card control-room">
         <div className="control-header">
-          <h2>🕸️ Skill Cluster Analysis</h2>
+          <h2 style={{ color: "white" }}>🕸️ Skill Cluster Analysis</h2>
           <span className="mode-badge live" style={{background: '#d2a8ff', color: 'black'}}>
             RELATIONSHIP MAP
           </span>

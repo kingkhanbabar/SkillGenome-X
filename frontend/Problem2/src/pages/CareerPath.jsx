@@ -33,7 +33,7 @@ const CareerPath = () => {
       {/* HEADER */}
       <div className="card control-room">
         <div className="control-header">
-          <h2>🚀 AI Career Pathfinder</h2>
+          <h2 style={{ color: "white" }}>🚀 AI Career Pathfinder</h2>
           <span className="mode-badge live" style={{background: '#2ea043', color: 'white'}}>
             HR STRATEGY ENABLED
           </span>
