@@ -9,7 +9,6 @@ const ClusterPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // FIX: Added https:// right here!
         const res = await axios.get('https://skillgenome-x-production.up.railway.app/api/clusters');
         setData(res.data);
       } catch (err) {
@@ -61,66 +60,68 @@ const ClusterPage = () => {
 
 // --- 1. Custom Tile Design (The Blocks) ---
 const CustomizedContent = (props) => {
-  const { root, depth, x, y, width, height, index, name, value } = props;
+  // We extract 'depth' to know if it's a Parent Category or a Child Skill
+  const { depth, x, y, width, height, name, value, fill } = props;
 
-  return (
-    <g>
-      {/* The Colored Rectangle */}
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        style={{
-          fill: props.fill || '#58a6ff', 
-          stroke: '#0d1117',
-          strokeWidth: 2,
-          opacity: 0.8,
-        }}
-      />
-      
-      {/* The Text Label (Only show if box is big enough) */}
-      {width > 50 && height > 30 && (
-        <text
-          x={x + width / 2}
-          y={y + height / 2}
-          textAnchor="middle"
-          fill="#fff"
-          fontSize={14}
-          fontWeight="bold"
-          style={{pointerEvents: 'none'}} 
-        >
-          {name}
-        </text>
-      )}
-      
-      {/* The Value (Smaller text below name) */}
-      {width > 50 && height > 50 && (
-        <text
-          x={x + width / 2}
-          y={y + height / 2 + 18}
-          textAnchor="middle"
-          fill="rgba(255,255,255,0.7)"
-          fontSize={11}
-        >
-          {value} Signals
-        </text>
-      )}
-    </g>
-  );
+  // LEVEL 1: PARENT CATEGORIES (e.g., "Future Tech", "Agri-Tech")
+  if (depth === 1) {
+    return (
+      <g>
+        {/* Make the parent background transparent so we can see the children inside! */}
+        <rect x={x} y={y} width={width} height={height} fill="rgba(0,0,0,0)" stroke="#1f2937" strokeWidth={3} />
+        
+        {/* Subtle background text for the category name */}
+        {width > 100 && height > 50 && (
+          <text x={x + 10} y={y + 25} fill="rgba(255,255,255,0.15)" fontSize={18} fontWeight="bold" style={{pointerEvents: 'none'}}>
+            {name}
+          </text>
+        )}
+      </g>
+    );
+  }
+
+  // LEVEL 2: CHILD SKILLS (e.g., "AI/ML", "Drone Ops" - The colorful boxes!)
+  if (depth === 2) {
+    return (
+      <g>
+        <rect
+          x={x} y={y} width={width} height={height}
+          style={{
+            fill: fill || '#58a6ff', // Uses the color from Python backend!
+            stroke: '#0d1117',
+            strokeWidth: 2,
+            opacity: 0.9,
+          }}
+        />
+        {/* Show text only if the box is big enough */}
+        {width > 50 && height > 40 && (
+          <>
+            <text x={x + width / 2} y={y + height / 2 - 5} textAnchor="middle" fill="#fff" fontSize={14} fontWeight="bold" style={{pointerEvents: 'none', textShadow: '1px 1px 3px rgba(0,0,0,0.8)'}}>
+              {name}
+            </text>
+            <text x={x + width / 2} y={y + height / 2 + 15} textAnchor="middle" fill="#f0f6fc" fontSize={12} fontWeight="bold" style={{pointerEvents: 'none', textShadow: '1px 1px 3px rgba(0,0,0,0.8)'}}>
+              {value} Signals
+            </text>
+          </>
+        )}
+      </g>
+    );
+  }
+  
+  return null;
 };
 
 // --- 2. Custom Tooltip (Hover Effect) ---
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
+    // Don't show tooltip for empty background parents
+    if (!data.fill) return null; 
+
     return (
       <div style={{
-        background: '#161b22', 
-        border: '1px solid #30363d', 
-        padding: '10px', 
-        borderRadius: '4px',
-        boxShadow: '0 4px 10px rgba(0,0,0,0.5)'
+        background: '#161b22', border: '1px solid #30363d', padding: '10px', 
+        borderRadius: '4px', boxShadow: '0 4px 10px rgba(0,0,0,0.5)'
       }}>
         <p style={{margin: 0, fontWeight: 'bold', color: '#f0f6fc'}}>{data.name}</p>
         <p style={{margin: 0, color: '#8b949e'}}>Dominance Score: {data.value}</p>
