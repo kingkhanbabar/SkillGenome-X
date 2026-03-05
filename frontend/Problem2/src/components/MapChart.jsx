@@ -6,8 +6,8 @@ const MapChart = () => {
     const [mapData, setMapData] = useState(null);
 
     useEffect(() => {
-        // Fetch the Plotly JSON from your Python Backend
-        axios.get('http://localhost:8000/api/heatmap')
+        // Fetch the Plotly JSON from your Python Backend (UPDATED WITH RAILWAY URL)
+        axios.get('https://skillgenome-x-production.up.railway.app/api/heatmap')
             .then(res => setMapData(res.data))
             .catch(err => console.error("Map Load Error:", err));
     }, []);

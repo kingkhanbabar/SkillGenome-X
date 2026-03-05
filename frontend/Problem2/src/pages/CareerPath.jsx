@@ -14,7 +14,7 @@ const CareerPath = () => {
     setResults(null); 
     
     try {
-      const res = await axios.post('http://localhost:8000/api/recommend', {
+      const res = await axios.post('skillgenome-x-production.up.railway.app/api/recommend', {
         region: region,
         current_skills: inputText.split(" ") 
       });

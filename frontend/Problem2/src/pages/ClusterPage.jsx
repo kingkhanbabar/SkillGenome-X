@@ -9,7 +9,7 @@ const ClusterPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/api/clusters');
+        const res = await axios.get('skillgenome-x-production.up.railway.app/api/clusters');
         setData(res.data);
       } catch (err) {
         console.error(err);

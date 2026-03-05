@@ -12,8 +12,8 @@ const CareerPath = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            // Send data to Python Backend
-            const response = await axios.post('http://localhost:8000/api/recommend', {
+            // Send data to Python Backend (UPDATED WITH RAILWAY URL)
+            const response = await axios.post('https://skillgenome-x-production.up.railway.app/api/recommend', {
                 region: region,
                 current_skills: [manualSkill] // Sending as a list
             });
@@ -99,7 +99,7 @@ const CareerPath = () => {
                                 <strong style={{color: 'white'}}>{rec.skill_needed}</strong>
                             </div>
                             <div style={{width: '100%', background: '#30363d', height: '6px', borderRadius: '3px', marginBottom: '10px'}}>
-                                <div style={{width: `${rec.match_score}%`, background: '#3fb950', height: '100%', borderRadius: '3px'}}></div>
+                                <div style={{width: `${rec.score}%`, background: '#3fb950', height: '100%', borderRadius: '3px'}}></div>
                             </div>
                             <p style={{fontSize: '0.85rem', margin: 0, color: '#c9d1d9'}}>
                                 💡 {rec.reason}
