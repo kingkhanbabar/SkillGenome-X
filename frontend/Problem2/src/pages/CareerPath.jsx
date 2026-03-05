@@ -14,7 +14,8 @@ const CareerPath = () => {
     setResults(null); 
     
     try {
-      const res = await axios.post('skillgenome-x-production.up.railway.app/api/recommend', {
+      // FIX: Added https:// to the beginning of the URL!
+      const res = await axios.post('https://skillgenome-x-production.up.railway.app/api/recommend', {
         region: region,
         current_skills: inputText.split(" ") 
       });
@@ -96,11 +97,10 @@ const CareerPath = () => {
 
             {/* PROGRESS BAR */}
             <div style={{width: '100%', background: '#21262d', height: '8px', borderRadius: '4px', marginBottom: '15px'}}>
-                <div style={{width: `${job.match_score}%`, background: '#2ea043', height: '100%', borderRadius: '4px'}}></div>
+                {/* FIX: Changed job.match_score to job.score */}
+                <div style={{width: `${job.score}%`, background: '#2ea043', height: '100%', borderRadius: '4px'}}></div>
             </div>
 
-            {/* === THIS IS THE FIX === */}
-            {/* Using 'pre-wrap' ensures \n creates a new line */}
             <div 
               style={{
                 background: 'rgba(46, 160, 67, 0.1)', 
@@ -109,14 +109,12 @@ const CareerPath = () => {
                 color: '#c9d1d9',
                 fontSize: '0.95rem',
                 lineHeight: '1.6',
-                whiteSpace: 'pre-wrap', // <--- THIS HANDLES THE SPACING
+                whiteSpace: 'pre-wrap', 
                 fontFamily: 'monospace'
               }}
             >
                💡 {job.reason}
             </div>
-            {/* ======================= */}
-
           </motion.div>
         ))}
       </div>
