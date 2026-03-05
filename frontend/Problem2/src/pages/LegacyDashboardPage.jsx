@@ -11,10 +11,10 @@ export default function LegacyDashboardPage() {
   const [botsBlocked, setBotsBlocked] = useState(10);
   const [verifiedTalent, setVerifiedTalent] = useState(1790);
 
-  // 1. Check the real backend status
+  // 1. Check the real backend status (UPDATED WITH RAILWAY URL)
   const checkStatus = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/sim/status');
+      const res = await axios.get('https://skillgenome-x-production.up.railway.app/api/sim/status');
       const mode = res.data.current_scenario.toUpperCase();
       setCurrentMode(mode);
       
@@ -31,10 +31,10 @@ export default function LegacyDashboardPage() {
     }
   };
 
-  // 2. Send Command to Backend (Exactly like your Control Room)
+  // 2. Send Command to Backend (UPDATED WITH RAILWAY URL)
   const setMode = async (mode) => {
     try {
-      await axios.post(`http://localhost:8000/api/sim/set/${mode}`);
+      await axios.post(`https://skillgenome-x-production.up.railway.app/api/sim/set/${mode}`);
       checkStatus(); // Refresh the UI instantly after clicking
     } catch (err) {
       console.error("Failed to set mode:", err);

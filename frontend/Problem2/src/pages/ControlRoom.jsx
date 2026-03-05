@@ -5,18 +5,18 @@ const ControlRoom = () => {
   const [status, setStatus] = useState('Checking...');
   const [currentMode, setCurrentMode] = useState('UNKNOWN');
 
-  // 1. Check Backend Status
+  // 1. Check Backend Status (UPDATED WITH RAILWAY URL)
   const checkStatus = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/sim/status');
+      const res = await axios.get('https://skillgenome-x-production.up.railway.app/api/sim/status');
       setCurrentMode(res.data.current_scenario);
       setStatus(res.data.market_trend);
     } catch (err) { setStatus('Backend Offline'); }
   };
 
-  // 2. Send Command to Backend
+  // 2. Send Command to Backend (UPDATED WITH RAILWAY URL)
   const setMode = async (mode) => {
-    await axios.post(`http://localhost:8000/api/sim/set/${mode}`);
+    await axios.post(`https://skillgenome-x-production.up.railway.app/api/sim/set/${mode}`);
     checkStatus(); // Update UI immediately
   };
 

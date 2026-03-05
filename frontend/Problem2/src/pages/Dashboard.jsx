@@ -17,10 +17,10 @@ const Dashboard = () => {
   const [selectedPolicy, setSelectedPolicy] = useState('Launch State Skilling Program');
   const [isSimulating, setIsSimulating] = useState(false);
 
-  // 1. Load initial data on startup
+  // 1. Load initial data on startup (UPDATED WITH RAILWAY URL)
   const fetchMetrics = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/dashboard/metrics');
+      const res = await axios.get('https://skillgenome-x-production.up.railway.app/api/dashboard/metrics');
       if (res.data) setMetrics(res.data);
     } catch (err) { console.error("Backend offline:", err); }
   };
@@ -29,11 +29,11 @@ const Dashboard = () => {
     fetchMetrics(); 
   }, []);
 
-  // 2. Run the AI Forecast Simulation
+  // 2. Run the AI Forecast Simulation (UPDATED WITH RAILWAY URL)
   const handleRunSimulation = async () => {
     setIsSimulating(true);
     try {
-      const res = await axios.post('http://localhost:8000/api/sim/run_forecast', {
+      const res = await axios.post('https://skillgenome-x-production.up.railway.app/api/sim/run_forecast', {
         state: selectedState,
         policy: selectedPolicy
       });
